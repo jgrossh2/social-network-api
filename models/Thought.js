@@ -18,7 +18,12 @@ const thoughtSchema = new Schema(
             required: "Please enter a username."
         },
         reactions: [reactionSchema]
-    }
+    },
+    {
+        toJSON: {
+            getters: true
+        }
+    },
 );
 
 thoughtSchema.virtual('reactionCount').get(function() {
