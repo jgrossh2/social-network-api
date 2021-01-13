@@ -48,7 +48,12 @@ const thoughtSchema = new Schema(
             type: String,
             required: "Please enter a username."
         },
-        reactions: [reactionSchema]
+        reactions: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'Reaction'
+            }
+        ],
     },
     {
         toJSON: {

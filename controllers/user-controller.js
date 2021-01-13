@@ -1,4 +1,3 @@
-const { captureRejectionSymbol } = require('events');
 const { User } = require('../models');
 
 const userController = {
