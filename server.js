@@ -15,7 +15,7 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/socialdb', {
 
 mongoose.set('debug', true);
 
-app.use( require('./routes'));
+app.use(require('./routes/api'));
 
 app.listen(PORT, () => {
     console.log(`🌍 App running on port ${PORT}!`);

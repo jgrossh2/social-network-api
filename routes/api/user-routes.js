@@ -1,5 +1,4 @@
-const { Router } = require('express').Router();
-const router = require('express');
+const router = require('express').Router();
 const {
     getAllUser,
     createUser,
