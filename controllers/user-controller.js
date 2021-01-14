@@ -4,16 +4,6 @@ const userController = {
     // get all users
     getAllUser(req, res) {
         User.find({})
-            .populate([
-                {
-                path: 'thoughts',
-                select: '-__v'
-                },
-                {
-                path: 'friends',
-                select: '-__v'
-            }])
-            .select('-__v')
             .then(dbUserData => res.json(dbUserData))
             .catch(err => {
                 console.log(err);
@@ -33,6 +23,10 @@ const userController = {
                 path: 'thoughts',
                 select: '__v'
             })
+            // .populate({
+            //     path: 'friends',
+            //     select: '__v'
+            // })
             .select('-__v')
             .then((dbUserData) => {
                 console.log(dbUserData)
@@ -63,10 +57,10 @@ const userController = {
     },
 
     //  add friend to user
-    createFriend({ params, body }, res) {
+    createFriend(req, res) {
         User.findOneAndUpdate(
-            { _id: params.userId },
-            { $push: { friends: body } },
+            { _id: req.params.userId },
+            { $push: { friends: req.params.friendId } },
             { new: true, runValidators: true })
             .then(dbUserData => {
                 if (!dbUserData) {
@@ -78,10 +72,10 @@ const userController = {
             .catch(err => res.json(err));
         },
     //  delete friend from user
-    deleteFriend({ params }, res) {
+    deleteFriend(req, res) {
         User.findOneAndUpdate(
-            { _id: params.userId },
-            { $pull: { friends: { friendId: params.friendId} } },
+            { _id: req.params.userId },
+            { $pull: { friends: req.params.friendId} },
             { new: true, runValidators: true }
         )
         .then(dbUserData => res.json(dbUserData))
